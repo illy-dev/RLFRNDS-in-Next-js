@@ -1,7 +1,7 @@
 import { SignUpForm } from "../../components/SignUpForm";
 import Link from "next/link";
 
-//from shadcn examples
+//yoinked from shadcn examples
 export default function SignUpPage() {
   return (
    <div>
