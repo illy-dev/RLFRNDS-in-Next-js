@@ -1,17 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/../src/components/icons"
 import { Button } from "@/../src/components/ui/button"
 import { Input } from "@/../src/components/ui/input"
 import { Label } from "@/../src/components/ui/label"
+import { PasswordInput } from "@/components/ui/PasswordInput"
+
+import { supabase } from "@/utils/db"
 
 interface SignUpFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [user, setUser] = useState(null)
 
   async function onSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
@@ -22,6 +26,16 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     }, 3000)
   }
 
+  async function signInWithDiscord() {
+    await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+    })
+  }
+
+  useEffect(() => {
+    const session = supabase.auth.getSession();
+    
+  })
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
@@ -39,6 +53,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               autoCorrect="off"
               disabled={isLoading}
             />
+            <PasswordInput isLoading={isLoading} />
           </div>
           <Button disabled={isLoading}>
             {isLoading && (
@@ -58,7 +73,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button variant="outline" type="button" disabled={isLoading} onClick={signInWithDiscord}>
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (

@@ -45,8 +45,8 @@ export function LogInForm({ className, ...props }: LogInFormProps) {
               Email
             </Label>
             <Input
-              id="email"
-              placeholder="name@example.com"
+              id="password"
+              placeholder="min 10"
               type="email"
               autoCapitalize="none"
               autoComplete="email"

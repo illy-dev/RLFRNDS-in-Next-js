@@ -5,6 +5,7 @@ export default function Navbar() {
     return(
         <div>        
             <Link href="/signup"><Button>SignUp</Button></Link>
+            <Link href="/login"><Button>LogIn</Button></Link>
         </div>
     );
 }
