@@ -7,6 +7,7 @@ import { Icons } from "@/../src/components/icons"
 import { Button } from "@/../src/components/ui/button"
 import { Input } from "@/../src/components/ui/input"
 import { Label } from "@/../src/components/ui/label"
+import { PasswordInput } from "@/components/ui/PasswordInput"
 
 interface LogInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -44,15 +45,7 @@ export function LogInForm({ className, ...props }: LogInFormProps) {
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
-            <Input
-              id="password"
-              placeholder="min 10"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
+          <PasswordInput isLoading={isLoading} />
           </div>
           <Button disabled={isLoading}>
             {isLoading && (
