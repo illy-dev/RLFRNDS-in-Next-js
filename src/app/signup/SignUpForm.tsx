@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/../src/components/icons"
@@ -9,13 +9,15 @@ import { Input } from "@/../src/components/ui/input"
 import { Label } from "@/../src/components/ui/label"
 import { PasswordInput } from "@/components/ui/PasswordInput"
 
-import { supabase } from "@/utils/db"
+import { useAuth } from "@/utils/authHook"
 
 interface SignUpFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [user, setUser] = useState(null)
+  const { isLoadingDiscord, signInWithDiscord } = useAuth();
+  const [ isLoading, setIsLoading ] = useState<boolean>(false)
+
+  if (isLoadingDiscord) {setIsLoading(true); setTimeout(() => {setIsLoading(false)}, 3000)}
 
   async function onSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
@@ -26,16 +28,6 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     }, 3000)
   }
 
-  async function signInWithDiscord() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'discord',
-    })
-  }
-
-  useEffect(() => {
-    const session = supabase.auth.getSession();
-    
-  })
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>

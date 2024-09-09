@@ -1,8 +1,7 @@
 import { LogInForm } from "./LogInForm";
-import Link from "next/link";
 
 //yoinked from shadcn examples
-export default function SignUpPage() {
+export default function LogInPage() {
   return (
    <div>
 
